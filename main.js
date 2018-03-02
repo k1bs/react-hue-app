@@ -46,6 +46,21 @@ app.on('activate', () => {
 })
 
 function huejayInit () {
+  let count = db.users.count({}, (err, count) => {
+    if (err) {
+      console.log(err)
+    }
+    return count
+  })
+
+  if (count === 0) {
+    db.users.insert({ firstName: null,
+      lastName: null,
+      email: null,
+      hueUsername: null,
+      bridgeIP: null })
+  }
+
   huejay.discover()
     .then((bridges) => {
       bridges.map((bridge) => {

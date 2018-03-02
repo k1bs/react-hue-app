@@ -1,25 +1,8 @@
 const { app, BrowserWindow } = require('electron')
-const path = require('path')
-const url = require('url')
-// const Datastore = require('nedb')
-
-// const user = new Datastore({
-//   filename: './assets/db/user.nedb',
-//   autoload: true
-// })
-
-// const commands = new Datastore({
-//   filename: './assets/db/user.nedb',
-//   autoload: true
-// })
+// const path = require('path')
+// const url = require('url')
 
 let win
-
-// const startUrl = process.env.ELECTRON_START_URL || url.format({
-//   pathname: path.join(__dirname, './build/index.html'),
-//   protocol: 'file:',
-//   slashes: true
-// })
 
 function createWindow () {
   win = new BrowserWindow({

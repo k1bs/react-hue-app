@@ -1,4 +1,5 @@
 const { app, BrowserWindow } = require('electron')
+const huejay = require('huejay')
 // const path = require('path')
 // const url = require('url')
 
@@ -11,6 +12,15 @@ function createWindow () {
   })
 
   win.loadURL('http://localhost:3000')
+
+  huejay.discover()
+    .then((bridges) => {
+      bridges.map((bridge) => {
+        console.log(bridge)
+      })
+    }).catch((err) => {
+      console.log(`Error: ${err.message}`)
+    })
 
   win.on('closed', () => {
     win = null

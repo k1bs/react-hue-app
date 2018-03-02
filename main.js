@@ -22,7 +22,7 @@ function createWindow () {
 
   win.loadURL('http://localhost:3000')
 
-  huejayInit()
+  huejayInit(userInit)
 
   win.on('closed', () => {
     win = null
@@ -45,30 +45,20 @@ app.on('activate', () => {
   }
 })
 
-function huejayInit () {
-  let count = db.users.count({}, (err, count) => {
-    if (err) {
-      console.log(err)
-    }
-    return count
-  })
-
-  if (count === 0) {
-    db.users.insert({ firstName: null,
-      lastName: null,
-      email: null,
-      hueUsername: null,
-      bridgeIP: null })
-  }
-
+function huejayInit (callback) {
   huejay.discover()
     .then((bridges) => {
       bridges.map((bridge) => {
         console.log(bridge)
+        callback(bridge)
       })
     }).catch((err) => {
       console.log(`Error: ${err.message}`)
     })
+}
+
+function userInit (bridge) {
+  console.log(bridge.ip)
 }
 
 // TODO: IPC

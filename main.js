@@ -22,14 +22,7 @@ function createWindow () {
 
   win.loadURL('http://localhost:3000')
 
-  huejay.discover()
-    .then((bridges) => {
-      bridges.map((bridge) => {
-        console.log(bridge)
-      })
-    }).catch((err) => {
-      console.log(`Error: ${err.message}`)
-    })
+  huejayInit()
 
   win.on('closed', () => {
     win = null
@@ -51,5 +44,16 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+function huejayInit () {
+  huejay.discover()
+    .then((bridges) => {
+      bridges.map((bridge) => {
+        console.log(bridge)
+      })
+    }).catch((err) => {
+      console.log(`Error: ${err.message}`)
+    })
+}
 
 // TODO: IPC

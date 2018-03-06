@@ -14,6 +14,8 @@ db.commands.loadDatabase()
 
 let win
 
+let client
+
 function createWindow () {
   win = new BrowserWindow({
     width: 800,
@@ -48,9 +50,17 @@ app.on('activate', () => {
 function huejayInit (callback) {
   huejay.discover()
     .then((bridges) => {
-      bridges.map((bridge) => {
-        console.log(bridge)
-        callback(bridge)
+      console.log(bridges[0])
+      db.users.find({ bridgeIP: bridges[0].ip }, (err, docs) => {
+        if (docs.length > 0) {
+          client = new huejay.Client({
+            host: docs[0].bridgeIP,
+            username: docs[0].username
+          })
+        }
+        if (err) {
+          console.log(err)
+        }
       })
     }).catch((err) => {
       console.log(`Error: ${err.message}`)
